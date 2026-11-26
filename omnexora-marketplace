@@ -1,0 +1,322 @@
+OMNEXORA PHASE 14 — BATCH 1
+
+Create the following files exactly as provided, preserving their filenames, folder paths and contents. The project root folder must be "Omnexora-Marketplace".
+
+Do not redesign, simplify, replace or invent any project code. Do not add credentials or real secrets. Do not deploy or run database migrations yet.
+
+After creating the files, report which files were created successfully and whether any errors occurred.
+
+File 1
+
+Path: "Omnexora-Marketplace/package.json"
+
+{
+  "name": "workspace",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "preinstall": "sh -c 'rm -f package-lock.json yarn.lock; case \"$npm_config_user_agent\" in pnpm/*) ;; *) echo \"Use pnpm instead\" >&2; exit 1 ;; esac'",
+    "build": "pnpm run typecheck && pnpm -r --if-present run build",
+    "typecheck:libs": "tsc --build",
+    "typecheck": "pnpm run typecheck:libs && pnpm -r --filter \"./artifacts/**\" --filter \"./scripts\" --if-present run typecheck"
+  },
+  "private": true,
+  "dependencies": {},
+  "devDependencies": {
+    "prettier": "^3.9.10",
+    "typescript": "~5.9.3"
+  }
+}
+
+File 2
+
+Path: "Omnexora-Marketplace/pnpm-workspace.yaml"
+
+# ============================================================================
+# SECURITY: Minimum release age for npm packages (supply-chain attack defense)
+# ============================================================================
+#
+# This setting requires that any npm package version must have been published
+# for at least 1 day (1440 minutes) before pnpm will allow installing it.
+# This is a critical defense against supply-chain attacks. In most cases,
+# malicious npm releases are discovered and pulled within hours, so a 1-day
+# delay provides a strong safety buffer.
+#
+# DO NOT DISABLE THIS SETTING. Removing or setting it to 0 is considered
+# extremely dangerous and leaves the entire workspace vulnerable to supply-
+# chain attacks, which have been the #1 vector for npm ecosystem compromises.
+#
+# If you absolutely need to install a package before the 1-day window has
+# passed (e.g. an urgent security bugfix), you can add it to the
+# minimumReleaseAgeExclude allowlist below. Only consider doing this for
+# packages released by trusted organizations with an impeccable security
+# posture (e.g. packages maintained by established project owners). Even then,
+# remove the exclusion once the 1-day window has passed.
+#
+# Example:
+#   minimumReleaseAgeExclude:
+#     - react
+#     - typescript
+#
+# ============================================================================
+minimumReleaseAge: 1440
+
+minimumReleaseAgeExclude:
+
+packages:
+  - artifacts/*
+  - lib/*
+  - lib/integrations/*
+  - scripts
+
+catalog:
+  '@tailwindcss/vite': ^4.1.14
+  '@tanstack/react-query': ^5.90.21
+  '@types/node': ^25.3.3
+  '@types/react': ^19.2.0
+  '@types/react-dom': ^19.2.0
+  '@vitejs/plugin-react': ^5.0.4
+  class-variance-authority: ^0.7.1
+  clsx: ^2.1.1
+  drizzle-orm: ^0.45.2
+  framer-motion: ^12.23.24
+  lucide-react: ^0.545.0
+  # Must be this exact version because expo requires it
+  react: 19.1.0
+  # Must be this exact version because expo requires it
+  react-dom: 19.1.0
+  tailwind-merge: ^3.3.1
+  tailwindcss: ^4.1.14
+  tsx: ^4.21.0
+  vite: ^7.3.2
+  wouter: ^3.3.5
+  zod: ^3.25.76
+
+autoInstallPeers: false
+
+onlyBuiltDependencies:
+  - '@swc/core'
+  - esbuild
+  - msw
+  - unrs-resolver
+
+overrides:
+  "proxy-addr@^2": "^2.0.8"
+  "source-map-js@^1": "^1.2.2"
+  "fast-uri@^3": "^3.1.8"
+  "brace-expansion@^5": "^5.0.12"
+  "esbuild>@esbuild/darwin-arm64": "-"
+  "esbuild>@esbuild/darwin-x64": "-"
+  "esbuild>@esbuild/freebsd-arm64": "-"
+  "esbuild>@esbuild/freebsd-x64": "-"
+  "esbuild>@esbuild/linux-arm": "-"
+  "esbuild>@esbuild/linux-arm64": "-"
+  "esbuild>@esbuild/linux-ia32": "-"
+  "esbuild>@esbuild/linux-loong64": "-"
+  "esbuild>@esbuild/linux-mips64el": "-"
+  "esbuild>@esbuild/linux-riscv64": "-"
+  "esbuild>@esbuild/linux-s390x": "-"
+  "esbuild>@esbuild/netbsd-arm64": "-"
+  "esbuild>@esbuild/netbsd-x64": "-"
+  "esbuild>@esbuild/openbsd-arm64": "-"
+  "esbuild>@esbuild/openbsd-x64": "-"
+  "esbuild>@esbuild/sunos-x64": "-"
+  "esbuild>@esbuild/win32-arm64": "-"
+  "esbuild>@esbuild/win32-ia32": "-"
+  "esbuild>@esbuild/win32-x64": "-"
+  "esbuild>@esbuild/aix-ppc64": '-'
+  "esbuild>@esbuild/android-arm": '-'
+  "esbuild>@esbuild/android-arm64": '-'
+  "esbuild>@esbuild/android-x64": '-'
+  "esbuild>@esbuild/openharmony-arm64": '-'
+  "lightningcss>lightningcss-android-arm64": "-"
+  "lightningcss>lightningcss-darwin-arm64": "-"
+  "lightningcss>lightningcss-darwin-x64": "-"
+  "lightningcss>lightningcss-freebsd-x64": "-"
+  "lightningcss>lightningcss-linux-arm-gnueabihf": "-"
+  "lightningcss>lightningcss-linux-arm64-gnu": "-"
+  "lightningcss>lightningcss-linux-arm64-musl": "-"
+  "lightningcss>lightningcss-win32-arm64-msvc": "-"
+  "lightningcss>lightningcss-win32-x64-msvc": "-"
+  "@tailwindcss/oxide>@tailwindcss/oxide-android-arm64": "-"
+  "@tailwindcss/oxide>@tailwindcss/oxide-darwin-arm64": "-"
+  "@tailwindcss/oxide>@tailwindcss/oxide-freebsd-x64": "-"
+  "@tailwindcss/oxide>@tailwindcss/oxide-linux-arm-gnueabihf": "-"
+  "@tailwindcss/oxide>@tailwindcss/oxide-linux-arm64-gnu": "-"
+  "@tailwindcss/oxide>@tailwindcss/oxide-linux-arm64-musl": "-"
+  "@tailwindcss/oxide>@tailwindcss/oxide-win32-arm64-msvc": "-"
+  "@tailwindcss/oxide>@tailwindcss/oxide-win32-x64-msvc": "-"
+  "@tailwindcss/oxide>@tailwindcss/oxide-linux-x64-musl": "-"
+  "rollup>@rollup/rollup-android-arm-eabi": "-"
+  "rollup>@rollup/rollup-android-arm64": "-"
+  "rollup>@rollup/rollup-darwin-arm64": "-"
+  "rollup>@rollup/rollup-darwin-x64": "-"
+  "rollup>@rollup/rollup-freebsd-arm64": "-"
+  "rollup>@rollup/rollup-freebsd-x64": "-"
+  "rollup>@rollup/rollup-linux-arm-gnueabihf": "-"
+  "rollup>@rollup/rollup-linux-arm-musleabihf": "-"
+  "rollup>@rollup/rollup-linux-arm64-gnu": "-"
+  "rollup>@rollup/rollup-linux-arm64-musl": "-"
+  "rollup>@rollup/rollup-linux-loong64-gnu": "-"
+  "rollup>@rollup/rollup-linux-loong64-musl": "-"
+  "rollup>@rollup/rollup-linux-ppc64-gnu": "-"
+  "rollup>@rollup/rollup-linux-ppc64-musl": "-"
+  "rollup>@rollup/rollup-linux-riscv64-gnu": "-"
+  "rollup>@rollup/rollup-linux-riscv64-musl": "-"
+  "rollup>@rollup/rollup-linux-s390x-gnu": "-"
+  "rollup>@rollup/rollup-linux-x64-musl": "-"
+  "rollup>@rollup/rollup-openbsd-x64": "-"
+  "rollup>@rollup/rollup-openharmony-arm64": "-"
+  "rollup>@rollup/rollup-win32-arm64-msvc": "-"
+  "rollup>@rollup/rollup-win32-ia32-msvc": "-"
+  "rollup>@rollup/rollup-win32-x64-gnu": "-"
+  "rollup>@rollup/rollup-win32-x64-msvc": "-"
+  "@expo/ngrok-bin>@expo/ngrok-bin-darwin-arm64": "-"
+  "@expo/ngrok-bin>@expo/ngrok-bin-darwin-x64": "-"
+  "@expo/ngrok-bin>@expo/ngrok-bin-freebsd-ia32": "-"
+  "@expo/ngrok-bin>@expo/ngrok-bin-freebsd-x64": "-"
+  "@expo/ngrok-bin>@expo/ngrok-bin-linux-arm64": "-"
+  "@expo/ngrok-bin>@expo/ngrok-bin-linux-arm": "-"
+  "@expo/ngrok-bin>@expo/ngrok-bin-linux-ia32": "-"
+  "@expo/ngrok-bin>@expo/ngrok-bin-sunos-x64": "-"
+  "@expo/ngrok-bin>@expo/ngrok-bin-win32-ia32": "-"
+  "@expo/ngrok-bin>@expo/ngrok-bin-win32-x64": "-"
+  # drizzle-kit uses esbuild internally on an older version that's vulnerable, this overrides it
+  "@esbuild-kit/esm-loader": "npm:tsx@^4.21.0"
+  esbuild: "0.28.2"
+  # orval pins js-yaml to an exact version older than the CVE fix (>=4.3.2)
+  js-yaml: '4.3.2'
+
+File 3
+
+Path: "Omnexora-Marketplace/tsconfig.base.json"
+
+{
+  "compilerOptions": {
+    "incremental": true,
+    "isolatedModules": true,
+    "lib": ["es2022"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "noEmitOnError": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitOverride": false,
+    "noImplicitReturns": true,
+    "noUnusedLocals": false,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": false,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "useUnknownInCatchVariables": true,
+    "alwaysStrict": true,
+    "skipLibCheck": true,
+    "target": "es2022",
+    "types": [],
+    "customConditions": ["workspace"]
+  }
+}
+
+File 4
+
+Path: "Omnexora-Marketplace/tsconfig.json"
+
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [
+    {
+      "path": "./lib/db"
+    },
+    {
+      "path": "./lib/api-client-react"
+    },
+    {
+      "path": "./lib/api-zod"
+    }
+  ]
+}
+
+File 5
+
+Path: "Omnexora-Marketplace/.gitignore"
+
+# See https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+# compiled output
+dist
+tmp
+out-tsc
+*.tsbuildinfo
+.expo
+.expo-shared
+.next
+.turbo
+.svelte-kit
+.nuxt
+.output
+.vercel
+
+# dependencies
+node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+yarn-error.log
+testem.log
+/typings
+
+# System Files
+.DS_Store
+Thumbs.db
+
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md
+
+.cache/
+.local/
+
+File 6
+
+Path: "Omnexora-Marketplace/.npmrc"
+
+auto-install-peers=false
+strict-peer-dependencies=false
+
+File 7
+
+Path: "Omnexora-Marketplace/.env.example"
+
+# Local Docker Compose only. Use Google Secret Manager for GCP production.
+POSTGRES_PASSWORD=replace-with-a-long-random-local-password
+CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+
+# ORACLE Fashion Intelligence (server-side only)
+OPENAI_API_KEY=
+OPENAI_MODEL=gpt-4.1-mini
+OPENAI_IMAGE_MODEL=gpt-image-1
+
+End of Batch 1. Do not mark the project complete. Wait for my next batch.
